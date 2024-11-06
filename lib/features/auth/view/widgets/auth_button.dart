@@ -18,7 +18,7 @@ class AuthButton extends StatelessWidget {
         )
       ),
       onPressed: onPressed,
-      child:Text(buttonText,style:const TextStyle(color: Colors.white),),
+      child:Text(buttonText,style:const TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.bold),),
     );
   }
 }
