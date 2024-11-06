@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lost_and_found_flutter_app/features/auth/services/auth_service.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/screens/login_screen.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/screens/signup_screen.dart';
 import 'package:lost_and_found_flutter_app/features/home/view/screens/home_screen.dart';
@@ -38,12 +39,18 @@ class AppRouter {
       )
     ],
     redirect: (context, state) async {
-      bool isAuthenticated = false;
+  String? token = await AuthService().getToken();
+  bool isAuthenticated = token != null;
 
-      if (state.fullPath != '/signup' && isAuthenticated) {
-        return '/signin';
-      }
-      return null; // No redirection needed
-    },
+  if (isAuthenticated && state.fullPath == '/signin') {
+    return '/home-screen';
+  }
+
+  if (!isAuthenticated && state.fullPath == '/home-screen') {
+    return '/signin';
+  }
+  return null;
+},
+
   );
 }

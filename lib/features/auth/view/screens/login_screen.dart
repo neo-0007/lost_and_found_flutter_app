@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
           emailController.text, passwordController.text);
           
       if (response['token'] != null) {
+        await authService.storeToken(response['token']);
         if(!mounted) return;
         context.goNamed(RouteConstants.homePage);
       } else {

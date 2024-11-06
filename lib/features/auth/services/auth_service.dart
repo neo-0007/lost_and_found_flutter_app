@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:lost_and_found_flutter_app/configs/api_constants.dart';
 import 'package:lost_and_found_flutter_app/features/auth/models/usermodel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthService {
+class AuthService {  
   Future<String> registerNew(UserModel user) async {
     final response = await http.post(
       Uri.parse(ApiConstants.signupUrl),
@@ -23,6 +25,7 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> loginUser(String email, String password) async {
+
     final response = await http.post(
       Uri.parse(ApiConstants.signinUrl),
       headers: {'Content-type': 'application/json'},
@@ -37,4 +40,20 @@ class AuthService {
       throw Exception('Failed to Signin');      
     }
   }
+
+  Future<void> storeToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+
+  Future<String?> getToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getString('token');
 }
+
+Future<void> clearToken() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.remove('token');
+}
+  }
+
