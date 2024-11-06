@@ -12,13 +12,24 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    cPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController firstNameController = TextEditingController();
-    TextEditingController lastNameController = TextEditingController();
-    TextEditingController emailNameController = TextEditingController();
-    TextEditingController passwordNameController = TextEditingController();
-    TextEditingController cPasswordNameController = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -42,8 +53,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 children: [
                   Expanded(
                     child: AuthFormField(
-                        controller: firstNameController, topText: 'FirstName',
-                        ),
+                      controller: firstNameController,
+                      topText: 'FirstName',
+                    ),
                   ),
                   const SizedBox(
                     width: 10,
@@ -54,43 +66,63 @@ class _SignupScreenState extends State<SignupScreen> {
                   )
                 ],
               ),
-              const SizedBox(height: 10,),
-              AuthFormField(controller: emailNameController, topText:'Email',
-              hintIcon: Icons.email,hintText: 'Enter your Email',
+              const SizedBox(
+                height: 10,
               ),
-              const SizedBox(height: 10,),
+              AuthFormField(
+                controller: emailController,
+                topText: 'Email',
+                hintIcon: Icons.email,
+                hintText: 'Enter your Email',
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               //Email
-              AuthFormField(controller: passwordNameController, topText:'Password',
-              hintIcon: Icons.lock,
-              hintText: 'Enter Your Password',
+              AuthFormField(
+                controller: passwordController,
+                topText: 'Password',
+                hintIcon: Icons.lock,
+                hintText: 'Enter Your Password',
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(
+                height: 10,
+              ),
               //Password
-              AuthFormField(controller: cPasswordNameController, topText:'Confirm Password',
-              hintIcon: Icons.lock,
-              hintText: 'Enter your Password Again',
+              AuthFormField(
+                controller: cPasswordController,
+                topText: 'Confirm Password',
+                hintIcon: Icons.lock,
+                hintText: 'Enter your Password Again',
               ),
-              const SizedBox(height: 30,),
+              const SizedBox(
+                height: 30,
+              ),
               //Confirm Password
-              AuthButton(buttonText: 'SignUp', onPressed: (){}),
-              const SizedBox(height: 15,),
+              AuthButton(buttonText: 'SignUp', onPressed: () {}),
+              const SizedBox(
+                height: 15,
+              ),
               //Signup Button
               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have a Account? ',
-                      style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Already have a Account? ',
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                  ),
+                  InkWell(
+                    onTap: () => context.goNamed(RouteConstants.signin),
+                    child: const Text(
+                      'Signin',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.blue,
+                          fontSize: 14),
                     ),
-                    InkWell(
-                      onTap: () => context.goNamed(RouteConstants.signin),
-                      child: const Text(
-                        'Signin',
-                        style: TextStyle(fontWeight: FontWeight.w500,color:Colors.blue ,fontSize: 14),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
               //Signin text
             ],
           ),

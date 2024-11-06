@@ -12,10 +12,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -29,19 +37,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 //Image
-                
+
                 ConstrainedBox(
                   constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(context).size.height * 0.3,
                     maxWidth: 300,
                   ),
                   child: Image.asset(
-                      'assets/images/lost_and_found_bgrm.png',
-                      height: 200,
-                      fit: BoxFit.contain,
-                    ),
+                    'assets/images/lost_and_found_bgrm.png',
+                    height: 200,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-                
+
                 const SizedBox(
                   height: 16,
                 ),
@@ -93,13 +101,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const Text(
                       'Dont have a Account? ',
-                      style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),
+                      style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
                     ),
                     InkWell(
                       onTap: () => context.goNamed(RouteConstants.signup),
-                      child:const Text(
+                      child: const Text(
                         'SignUp',
-                        style: TextStyle(fontWeight: FontWeight.w500,color:Colors.blue ,fontSize: 14),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.blue,
+                            fontSize: 14),
                       ),
                     ),
                   ],
