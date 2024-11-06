@@ -6,7 +6,7 @@ import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-      initialLocation: '/signup',
+      initialLocation: '/signin',
       routes: [
         GoRoute(
           name: RouteConstants.signup,
@@ -28,7 +28,7 @@ class AppRouter {
         )
       ],
       redirect: (context, state) async {
-        bool isAuthenticated = false;
+        bool isAuthenticated = true;
         if (!isAuthenticated) {
           return state.namedLocation(RouteConstants.signin);
         }
