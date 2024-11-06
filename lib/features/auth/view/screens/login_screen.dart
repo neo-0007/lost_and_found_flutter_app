@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lost_and_found_flutter_app/features/auth/services/auth_service.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_button.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_form_field.dart';
 import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
@@ -15,11 +16,39 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  AuthService authService = AuthService();
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> loginUser() async {
+    try {
+      final response = await authService.loginUser(
+          emailController.text, passwordController.text);
+          
+      if (response['token'] != null) {
+        if(!mounted) return;
+        context.goNamed(RouteConstants.homePage);
+      } else {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(response['message']),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -91,7 +120,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 30,
                 ),
                 //Login Button
-                AuthButton(buttonText: 'Login', onPressed: () {}),
+                AuthButton(
+                    buttonText: 'Login',
+                    onPressed: () {
+                      loginUser();
+                    }),
                 const SizedBox(
                   height: 10,
                 ),
