@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lost_and_found_flutter_app/features/auth/models/usermodel.dart';
+import 'package:lost_and_found_flutter_app/features/auth/services/auth_service.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_button.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_form_field.dart';
 import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
@@ -18,6 +20,8 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController cPasswordController = TextEditingController();
 
+  AuthService authService = AuthService();
+
   @override
   void dispose() {
     firstNameController.dispose();
@@ -26,6 +30,36 @@ class _SignupScreenState extends State<SignupScreen> {
     passwordController.dispose();
     cPasswordController.dispose();
     super.dispose();
+  }
+
+  Future<void> signupUser() async {
+    if (passwordController.text == cPasswordController.text) {
+      if (emailController.text.isEmpty ||
+          passwordController.text.isEmpty ||
+          firstNameController.text.isEmpty ||
+          lastNameController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('All Fields are Required'),
+          ),
+        );
+        return;
+      }
+      await authService.registerNew(
+        UserModel(
+          email: emailController.text,
+          password: passwordController.text,
+          firstName: firstNameController.text,
+          lastName: lastNameController.text,
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Password and Confirm Password does not match'),
+        ),
+      );
+    }
   }
 
   @override
@@ -99,7 +133,13 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 30,
               ),
               //Confirm Password
-              AuthButton(buttonText: 'SignUp', onPressed: () {}),
+              AuthButton(
+                  buttonText: 'SignUp',
+                  onPressed: () async {
+                    await signupUser();
+                    if (!context.mounted) return;
+                    context.goNamed(RouteConstants.homePage);
+                  }),
               const SizedBox(
                 height: 15,
               ),
