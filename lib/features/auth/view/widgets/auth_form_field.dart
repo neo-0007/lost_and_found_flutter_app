@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class AuthFormField extends StatelessWidget {
   const AuthFormField({
     super.key,
-    required this.hintText,
+    this.hintText,
     required this.controller,
     required this.topText,
-    required this.hintIcon,
+    this.hintIcon,
   });
 
-  final String hintText;
+  final String? hintText;
   final TextEditingController controller;
   final String topText;
-  final IconData hintIcon;
+  final IconData? hintIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class AuthFormField extends StatelessWidget {
                 child: Text(
                   topText,
                   style: const TextStyle(
-                      color: const Color.fromARGB(202, 2, 22, 58),
+                      color: Color.fromARGB(202, 2, 22, 58),
                       fontWeight: FontWeight.bold,
                       fontSize: 15),
                 ),
@@ -38,11 +38,11 @@ class AuthFormField extends StatelessWidget {
           ),
           TextFormField(
             decoration: InputDecoration(
-              prefixIcon: Padding(
+              prefixIcon:(hintIcon!=null)?Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Opacity(opacity: 0.4, child: Icon(hintIcon)),
-              ),
-              hintText: hintText,
+              ):null,
+              hintText: (hintText!=null)?hintText:null,
               hintStyle: const TextStyle(
                 fontSize: 16,
                 color: Color.fromARGB(70, 0, 0, 0),
