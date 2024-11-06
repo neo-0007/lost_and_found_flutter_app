@@ -5,24 +5,30 @@ import 'package:lost_and_found_flutter_app/features/auth/view/screens/signup_scr
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/signup',
-    routes: [
-      GoRoute(
-        path: '/signup',
-        pageBuilder: (context, state) {
-          return const MaterialPage(
-            child: SignupScreen(),
-          );
-        },
-      ),
-      GoRoute(
-        path: 'signin',
-        pageBuilder: (context, state) {
-          return const MaterialPage(
-            child: LoginScreen(),
-          );
-        },
-      )
-    ],
-  );
+      initialLocation: '/signup',
+      routes: [
+        GoRoute(
+          path: '/signup',
+          pageBuilder: (context, state) {
+            return const MaterialPage(
+              child: SignupScreen(),
+            );
+          },
+        ),
+        GoRoute(
+          path: '/signin',
+          pageBuilder: (context, state) {
+            return const MaterialPage(
+              child: LoginScreen(),
+            );
+          },
+        )
+      ],
+      redirect: (context, state) async {
+        bool isAuthenticated = true;
+        if (!isAuthenticated) {
+          return '/signin';
+        }
+        return null;
+      });
 }
