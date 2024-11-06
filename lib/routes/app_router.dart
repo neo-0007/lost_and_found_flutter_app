@@ -9,7 +9,7 @@ class AppRouter {
       initialLocation: '/signup',
       routes: [
         GoRoute(
-          name: 'signup',
+          name: RouteConstants.signup,
           path: '/signup',
           pageBuilder: (context, state) {
             return const MaterialPage(
@@ -18,7 +18,7 @@ class AppRouter {
           },
         ),
         GoRoute(
-          name:'signin',
+          name:RouteConstants.signin,
           path: '/signin',
           pageBuilder: (context, state) {
             return const MaterialPage(
@@ -28,9 +28,9 @@ class AppRouter {
         )
       ],
       redirect: (context, state) async {
-        bool isAuthenticated = true;
+        bool isAuthenticated = false;
         if (!isAuthenticated) {
-          return RouteConstants.signin;
+          return state.namedLocation(RouteConstants.signin);
         }
         return null;
       });
