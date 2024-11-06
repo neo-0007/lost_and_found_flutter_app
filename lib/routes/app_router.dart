@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/screens/login_screen.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/screens/signup_screen.dart';
+import 'package:lost_and_found_flutter_app/features/home/view/screens/home_screen.dart';
 import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
 
 class AppRouter {
@@ -23,6 +24,14 @@ class AppRouter {
         pageBuilder: (context, state) {
           return const MaterialPage(
             child: LoginScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/home-screen',
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            child: HomeScreen(),
           );
         },
       )
