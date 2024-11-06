@@ -28,6 +28,7 @@ class AppRouter {
         },
       ),
       GoRoute(
+        name: RouteConstants.homePage,
         path: '/home-screen',
         pageBuilder: (context, state) {
           return const MaterialPage(
