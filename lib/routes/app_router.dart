@@ -6,32 +6,34 @@ import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-      initialLocation: '/signin',
-      routes: [
-        GoRoute(
-          name: RouteConstants.signup,
-          path: '/signup',
-          pageBuilder: (context, state) {
-            return const MaterialPage(
-              child: SignupScreen(),
-            );
-          },
-        ),
-        GoRoute(
-          name:RouteConstants.signin,
-          path: '/signin',
-          pageBuilder: (context, state) {
-            return const MaterialPage(
-              child: LoginScreen(),
-            );
-          },
-        )
-      ],
-      redirect: (context, state) async {
-        bool isAuthenticated = true;
-        if (!isAuthenticated) {
-          return state.namedLocation(RouteConstants.signin);
-        }
-        return null;
-      });
+    initialLocation: '/signin',
+    routes: [
+      GoRoute(
+        name: RouteConstants.signup,
+        path: '/signup',
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            child: SignupScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        name: RouteConstants.signin,
+        path: '/signin',
+        pageBuilder: (context, state) {
+          return const MaterialPage(
+            child: LoginScreen(),
+          );
+        },
+      )
+    ],
+    redirect: (context, state) async {
+      bool isAuthenticated = false;
+
+      if (state.fullPath != '/signup' && isAuthenticated) {
+        return '/signin';
+      }
+      return null; // No redirection needed
+    },
+  );
 }

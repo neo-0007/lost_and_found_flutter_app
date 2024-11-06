@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_button.dart';
 import 'package:lost_and_found_flutter_app/features/auth/view/widgets/auth_form_field.dart';
+import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -73,16 +75,19 @@ class _SignupScreenState extends State<SignupScreen> {
               AuthButton(buttonText: 'SignUp', onPressed: (){}),
               const SizedBox(height: 15,),
               //Signup Button
-              const Row(
+              Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Already have a Account? ',
                       style: TextStyle(fontWeight: FontWeight.w500,fontSize: 14),
                     ),
-                    Text(
-                      'Signin',
-                      style: TextStyle(fontWeight: FontWeight.w500,color:Colors.blue ,fontSize: 14),
+                    InkWell(
+                      onTap: () => context.goNamed(RouteConstants.signin),
+                      child: const Text(
+                        'Signin',
+                        style: TextStyle(fontWeight: FontWeight.w500,color:Colors.blue ,fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
