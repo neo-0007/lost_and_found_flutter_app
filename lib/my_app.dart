@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:lost_and_found_flutter_app/features/auth/view/screens/login_screen.dart';
+import 'package:lost_and_found_flutter_app/routes/app_router.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final _myAppRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginScreen(),
+    return MaterialApp.router(
+      routeInformationParser: _myAppRouter.router.routeInformationParser,
+      routerDelegate: _myAppRouter.router.routerDelegate,
+      routeInformationProvider: _myAppRouter.router.routeInformationProvider,
     );
   }
 }
