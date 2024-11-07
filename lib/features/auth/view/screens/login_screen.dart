@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response['token'] != null) {
         await authService.storeToken(response['token']);
         if(!mounted) return;
-        context.goNamed(RouteConstants.homePage);
+        context.goNamed(RouteConstants.rootHomePage);
       } else {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(

@@ -12,7 +12,7 @@ import 'package:lost_and_found_flutter_app/routes/route_constants.dart';
 
 class AppRouter {
   GoRouter router = GoRouter(
-    initialLocation: '/root-home-page',
+    initialLocation: '/signin',
     routes: [
       GoRoute(
         name: RouteConstants.signup,

@@ -138,7 +138,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: () async {
                     await signupUser();
                     if (!context.mounted) return;
-                    context.goNamed(RouteConstants.homePage);
+                    context.goNamed(RouteConstants.rootHomePage);
                   }),
               const SizedBox(
                 height: 15,
