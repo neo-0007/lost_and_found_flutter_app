@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lost_and_found_flutter_app/features/chat/view/screens/chat_screen.dart';
 import 'package:lost_and_found_flutter_app/features/home/view/screens/home_screen.dart';
+import 'package:lost_and_found_flutter_app/features/profile/view/screens/profile_screen.dart';
+import 'package:lost_and_found_flutter_app/features/report/view/screens/report_screen.dart';
 
 class RootHomePage extends StatefulWidget {
   const RootHomePage({super.key});
@@ -13,9 +16,9 @@ class _RootHomePageState extends State<RootHomePage> {
 
   List<Widget> screens = <Widget>[
     const HomeScreen(),
-    //const ReportScreen(),
-    //const ChatScreen(),
-    //const ProfileScreen(),
+    const ReportScreen(),
+    const ChatScreen(),
+    const ProfileScreen(),
   ];
 
   @override
