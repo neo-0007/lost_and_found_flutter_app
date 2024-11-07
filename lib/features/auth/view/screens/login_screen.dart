@@ -26,6 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> loginUser() async {
     try {
+      if(emailController.text.isEmpty || passwordController.text.isEmpty){
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('All Fields are Required'),
+          ),
+        );
+        return;
+      }
       final response = await authService.loginUser(
           emailController.text, passwordController.text);
           
