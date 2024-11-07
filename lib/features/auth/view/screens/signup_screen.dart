@@ -53,6 +53,8 @@ class _SignupScreenState extends State<SignupScreen> {
           lastName: lastNameController.text,
         ),
       );
+      if (!mounted) return;
+      context.goNamed(RouteConstants.rootHomePage);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -137,8 +139,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   buttonText: 'SignUp',
                   onPressed: () async {
                     await signupUser();
-                    if (!context.mounted) return;
-                    context.goNamed(RouteConstants.rootHomePage);
                   }),
               const SizedBox(
                 height: 15,
